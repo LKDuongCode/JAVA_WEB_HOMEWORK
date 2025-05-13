@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/duong/ss06/dao/hw01_02/BookDaoImpl.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw01_books.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw02_auth.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw03_carts.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw04_employees.sql" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>
