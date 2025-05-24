@@ -1,4 +1,5 @@
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%--
       Created by IntelliJ IDEA.
       User: duong
@@ -38,7 +39,9 @@
         <h3>Kết quả:</h3>
         <p>Username: ${username}</p>
         <p>File đã upload:</p>
-        <img src="${pageContext.request.contextPath}/uploads/}" />
+        <p>${uploadedFile}</p>
+        <p>${pageContext.request.contextPath}/${uploadedFile}</p>
+        <img src="${pageContext.request.contextPath}/${uploadedFile}" />
 
     </c:if>
 

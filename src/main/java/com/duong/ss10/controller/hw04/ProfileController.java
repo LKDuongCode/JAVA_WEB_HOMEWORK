@@ -6,6 +6,7 @@ import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,6 @@ public class ProfileController {
         }
         return "hw04_up_file_form";
     }
-
     @PostMapping("/hw04-upload-server")
     public String uploadAvatar(@ModelAttribute("user-profile") UserProfile userProfile,
                                RedirectAttributes redirectAttributes) {
@@ -40,25 +40,35 @@ public class ProfileController {
             return "redirect:/hw04";
         }
 
-
         try {
-            String uploadDir = "D:/Learn/JavaWeb/ss10/src/main/webapp/uploads";
+            // ✅ Tên file an toàn
+            String originalFileName = file.getOriginalFilename();
+            String fileName = originalFileName != null ? originalFileName.replaceAll("/s+", "_") : "unknown.jpg";
 
-            File dir = new File(uploadDir);
-            if (!dir.exists()) {
-                boolean created = dir.mkdirs();
-                if (!created) {
-                    redirectAttributes.addFlashAttribute("errorMessage", "Không thể tạo thư mục để lưu file.");
-                    return "redirect:/hw04";
-                }
-            }
+            // ✅ 1. Đường dẫn deploy
+            String realUploadPath = servletContext.getRealPath("/uploads");
+            File realDir = new File(realUploadPath);
+            if (!realDir.exists()) realDir.mkdirs();
 
-            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-            file.transferTo(new File(uploadDir + File.separator + fileName));
+            // ✅ 2. Đường dẫn source
+            String srcUploadPath = "D:/Learn/JavaWeb/ss10/src/main/webapp/uploads";
+            File srcDir = new File(srcUploadPath);
+            if (!srcDir.exists()) srcDir.mkdirs();
 
+            // ✅ Đọc file 1 lần duy nhất
+            byte[] bytes = file.getBytes();
+
+            // ✅ Ghi ra cả 2 nơi
+            FileCopyUtils.copy(bytes, new File(realDir, fileName));
+            FileCopyUtils.copy(bytes, new File(srcDir, fileName));
+
+            System.out.println("REAL UPLOAD PATH: " + servletContext.getRealPath("/uploads"));
+
+            // ✅ Trả dữ liệu lại view
             redirectAttributes.addFlashAttribute("message", "Upload thành công!");
-            redirectAttributes.addFlashAttribute("uploadedFile", fileName);
+            redirectAttributes.addFlashAttribute("uploadedFile", "uploads/" + fileName);
             redirectAttributes.addFlashAttribute("username", userProfile.getUsername());
+
         } catch (IOException e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage", "Đã xảy ra lỗi khi upload file!");
@@ -68,3 +78,4 @@ public class ProfileController {
     }
 
 }
+
