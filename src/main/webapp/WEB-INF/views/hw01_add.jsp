@@ -1,0 +1,53 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: duong
+  Date: 24/05/2025
+  Time: 15:38
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>add</title>
+</head>
+<style>
+    .add-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .add-form {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border: black solid;
+        padding: 6px;
+    }
+</style>
+<body>
+<h3>add new student</h3>
+<form:form method="post" modelAttribute="createDTO" action="${pageContext.request.contextPath}/students/add" cssClass="add-form">
+    <div class="add-container">
+        <p>name</p>
+        <form:input path="name"/>
+        <form:errors path="name" cssStyle="color: red"/>
+    </div>
+
+    <div  class="add-container">
+        <p>email</p>
+        <form:input path="email"/>
+        <form:errors path="email" cssStyle="color: red"/>
+    </div>
+
+    <div  class="add-container">
+        <p>date of birth</p>
+        <form:input path="dob" type="date"/>
+        <form:errors path="dob" cssStyle="color: red"/>
+    </div>
+
+    <form:button>add</form:button>
+</form:form>
+</body>
+</html>

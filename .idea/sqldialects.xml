@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw01/setup.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw01/store_procedure.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw02/setup.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw02/store_procedure.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw03/setup.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw03/store_procedure.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/hw03/store_procedure_seat.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/lark01/setup.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/lark01/store_procedure.sql" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>
