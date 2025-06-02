@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Bus Trip</title>
+</head>
+<body>
+<h3>Edit Bus Trip</h3>
+
+<form th:action="@{/bus-trip/edit}" method="post" th:object="${updateBusTripDTO}" enctype="multipart/form-data">
+    <!-- ID ẩn -->
+    <input type="hidden" th:field="*{id}"/>
+    <!-- Tên ảnh cũ -->
+    <input type="hidden" th:field="*{image}"/>
+
+    <div>
+        Departure Point:<br>
+        <input type="text" th:field="*{departurePoint}" required>
+    </div>
+    <br>
+
+    <div>
+        Destination:<br>
+        <input type="text" th:field="*{destination}" required>
+    </div>
+    <br>
+
+    <div>
+        Departure Time:<br>
+        <input type="datetime-local" th:field="*{departureTime}" required>
+    </div>
+    <br>
+
+    <div>
+        Arrival Time:<br>
+        <input type="datetime-local" th:field="*{arrivalTime}" required>
+    </div>
+    <br>
+
+    <div>
+        Bus ID:<br>
+        <input type="number" th:field="*{busId}" min="1" required>
+    </div>
+    <br>
+
+    <div>
+        Seats Available:<br>
+        <input type="number" th:field="*{seatsAvailable}" min="1" required>
+    </div>
+    <br>
+
+    <div>
+        Current Image:<br>
+        <img th:src="@{/uploads/{img}(img=*{image})}" width="200px">
+    </div>
+    <br>
+
+    <div>
+        Upload New Image (Optional):<br>
+        <input type="file" th:field="*{file}">
+    </div>
+    <br>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<br>
+<a th:href="@{/bus-trip}">Back to list</a>
+</body>
+</html>

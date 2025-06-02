@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Bus Trip</title>
+</head>
+<body>
+<h3>Add New Bus Trip</h3>
+
+<form th:action="@{/bus-trip/add}" method="post" th:object="${createBusTripDTO}" enctype="multipart/form-data">
+    <div>
+        Departure Point:<br>
+        <input type="text" th:field="*{departurePoint}" required>
+    </div>
+    <br>
+
+    <div>
+        Destination:<br>
+        <input type="text" th:field="*{destination}" required>
+    </div>
+    <br>
+
+    <div>
+        Departure Time:<br>
+        <input type="datetime-local" th:field="*{departureTime}" required>
+    </div>
+    <br>
+
+    <div>
+        Arrival Time:<br>
+        <input type="datetime-local" th:field="*{arrivalTime}" required>
+    </div>
+    <br>
+
+    <div>
+        Bus ID:<br>
+        <input type="number" th:field="*{busId}" min="1" required>
+    </div>
+    <br>
+
+    <div>
+        Seats Available:<br>
+        <input type="number" th:field="*{seatsAvailable}" min="1" required>
+    </div>
+    <br>
+
+    <div>
+        Upload Image:<br>
+        <input type="file" th:field="*{file}" required>
+    </div>
+    <br>
+
+    <button type="submit">Add Trip</button>
+</form>
+
+<br>
+<a th:href="@{/bus-trip}">Back to list</a>
+</body>
+</html>

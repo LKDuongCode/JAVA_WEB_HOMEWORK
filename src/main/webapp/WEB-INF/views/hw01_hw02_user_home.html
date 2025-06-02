@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Trips</title>
+</head>
+<body>
+<h3>Available Bus Trips</h3>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Departure</th>
+        <th>Destination</th>
+        <th>Depart Time</th>
+        <th>Arrival Time</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trip, stat : ${busTrips}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${trip.departurePoint}"></td>
+        <td th:text="${trip.destination}"></td>
+        <td th:text="${trip.departureTime}"></td>
+        <td th:text="${trip.arrivalTime}"></td>
+        <td>
+            <img th:src="@{/uploads/{img}(img=${trip.image})}" width="150px" th:alt="${trip.destination}"/>
+        </td>
+        <td>
+            <form th:action="@{/book/{id}(id=${trip.id})}" method="get">
+                <button type="submit">Book Ticket</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

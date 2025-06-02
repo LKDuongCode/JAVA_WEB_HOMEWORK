@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bus list</title>
+</head>
+<body>
+<h3>bus list</h3>
+
+<a th:href="@{/bus/add}" >add bus</a>
+
+<br>
+<table border="1">
+  <tr>
+    <td>ID</td>
+    <td>LICENSE PLATE</td>
+    <td>TYPE</td>
+    <td>TOTAL SEAT</td>
+    <td>IMAGE</td>
+    <td>ACTION</td>
+  </tr>
+
+  <tr th:each="b,index : ${buses}" >
+    <td th:text="${index.count}"></td>
+    <td th:text="${b.licensePlate}"></td>
+    <td th:text="${b.type}"></td>
+    <td th:text="${b.rowSeat * b.colSeat}"></td>
+    <td >
+      <img th:src="@{/uploads/{filename}(filename=${b.image})}" th:alt="${b.licensePlate}" width="200px">
+    </td>
+
+    <td>
+      <form th:action="@{/bus/edit/{id}(id=${b.id})}" method="get" style="display:inline;">
+        <button type="submit">edit</button>
+      </form>
+
+      <form th:action="@{/bus/delete/{id}(id=${b.id})}" method="post" style="display:inline;"
+            onsubmit="return confirm('Delete?');">
+        <button type="submit">delete</button>
+      </form>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

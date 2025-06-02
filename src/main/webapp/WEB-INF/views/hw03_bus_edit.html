@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit bus</title>
+</head>
+<body>
+<h3>edit bus</h3>
+<br>
+<form th:action="@{/bus/edit}" method="post" th:object="${updateBusDTO}" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{image}"/>
+
+    <div>
+        licensePlate <br>
+        <input type="text" th:field="*{licensePlate}">
+    </div>
+    <br>
+
+    <div>
+        type <br>
+        <select th:field="*{type}">
+            <option value="NORMAL">NORMAL</option>
+            <option value="VIP">VIP</option>
+            <option value="LUXURY">LUXURY</option>
+        </select>
+    </div>
+    <br>
+
+    <div>
+        rowSeat <br>
+        <input type="number" th:field="*{rowSeat}" min="1">
+    </div>
+    <br>
+
+    <div>
+        colSeat <br>
+        <input type="number" th:field="*{colSeat}" min="1">
+    </div>
+    <br>
+
+    <div>
+        current image: <br>
+        <img th:src="@{/uploads/{filename}(filename=*{image})}" width="200px" alt="current image"/>
+    </div>
+    <br>
+
+    <div>
+        upload new image (optional) <br>
+        <input type="file" th:field="*{file}">
+    </div>
+    <br>
+
+    <button type="submit">save</button>
+</form>
+
+<br>
+<a th:href="@{/bus}">back</a>
+</body>
+</html>

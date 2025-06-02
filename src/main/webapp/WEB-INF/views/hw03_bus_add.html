@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add bus</title>
+</head>
+<body>
+<h3>add bus</h3>
+<br>
+<form th:action="@{/bus/add}" method="post" th:object="${createBusDTO}" enctype="multipart/form-data">
+    <div>
+        licensePlate <br>
+        <input type="text" th:field="*{licensePlate}">
+    </div>
+    <br>
+    <div th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}"></div>
+    <br>
+
+
+    <div>
+        type <br>
+        <select th:field="*{type}">
+            <option value="NORMAL">NORMAL</option>
+            <option value="VIP">VIP</option>
+            <option value="LUXURY">LUXURY</option>
+        </select>
+    </div>
+    <br>
+    <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
+    <br>
+
+
+    <div>
+        rowSeat <br>
+        <input type="number" th:field="*{rowSeat}" min="1">
+    </div>
+    <br>
+    <div th:if="${#fields.hasErrors('rowSeat')}" th:errors="*{rowSeat}"></div>
+    <br>
+
+
+    <div>
+        colSeat <br>
+        <input type="text" th:field="*{colSeat}" min="1">
+    </div>
+    <br>
+    <div th:if="${#fields.hasErrors('colSeat')}" th:errors="*{colSeat}"></div>
+    <br>
+
+
+    <div>
+        image <br>
+        <input type="file" th:field="*{file}">
+    </div>
+    <br>
+    <div th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div>
+    <br>
+
+
+    <button type="submit" >save</button>
+
+</form>
+<br>
+<a th:href="@{/bus}">back</a>
+</body>
+</html>

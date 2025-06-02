@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Ticket</title>
+</head>
+<body>
+<h3 th:text="'Booking for: ' + ${trip.departurePoint} + ' → ' + ${trip.destination}"></h3>
+
+<p>
+    Departure Time: <span th:text="${trip.departureTime}"></span><br>
+    Arrival Time: <span th:text="${trip.arrivalTime}"></span><br>
+</p>
+
+<form th:action="@{/book}" method="post" th:object="${createTicketDTO}">
+    <input type="hidden" th:field="*{userId}"/>
+    <input type="hidden" th:field="*{tripBusId}" th:value="${trip.id}"/>
+    <input type="hidden" th:field="*{departureDate}"/>
+
+    <p>Select your seats:</p>
+
+    <label>
+        <input type="checkbox" th:field="*{selectedSeats}" value="S1" data-price="150" onchange="updateTotal()"/> S1
+    </label>
+    <label>
+        <input type="checkbox" th:field="*{selectedSeats}" value="S2" data-price="100" onchange="updateTotal()"/> S2
+    </label>
+    <label>
+        <input type="checkbox" th:field="*{selectedSeats}" value="S3" data-price="200" onchange="updateTotal()"/> S3
+    </label>
+    <label>
+        <input type="checkbox" th:field="*{selectedSeats}" value="S4" data-price="100" onchange="updateTotal()"/> S4
+    </label>
+
+    <p>Total Money: <input type="number" th:field="*{totalMoney}" id="totalMoney" readonly/></p>
+
+    <button type="submit">Confirm Booking</button>
+</form>
+
+<br>
+<a th:href="@{/home}">Back</a>
+
+<script>
+    function updateTotal() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][data-price]');
+        let total = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                total += parseFloat(cb.dataset.price);
+            }
+        });
+        document.getElementById('totalMoney').value = total.toFixed(2);
+    }
+</script>
+</body>
+</html>
