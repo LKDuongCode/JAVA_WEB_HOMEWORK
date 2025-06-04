@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>dashboard</title>
+</head>
+<body>
+<h1>dashboard</h1>
+<h3>hello admin!</h3>
+<hr>
+
+<div class="container">
+    <div class="statistic-component">
+        <div class=".nav-bar">
+            <p>
+                <a th:href="@{/admin/accounts}">management</a>
+            </p>
+            <h3>users statistics</h3>
+        </div>
+
+        <table border="1" cellpadding="8" cellspacing="0">
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Email</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="statistic-component">
+        <div class=".nav-bar">
+            <p>
+                <a th:href="@{/admin/products}">management</a>
+            </p>
+            <h3>products statistics</h3>
+        </div>
+
+        <table border="1" cellpadding="8" cellspacing="0">
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Giá</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="statistic-component">
+        <div class=".nav-bar">
+            <p>
+                <a th:href="@{/admin/bills}">management</a>
+
+            </p>
+            <h3>orders statistics</h3>
+        </div>
+
+        <table border="1" cellpadding="8" cellspacing="0">
+            <tr>
+                <th>ID</th>
+                <th>Người đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+            </tr>
+            <tr th:each="bill : ${bills}">
+                <td th:text="${bill.id}"></td>
+                <td th:text="${bill.account.username}"></td>
+                <td th:text="${bill.totalMoney}"></td>
+                <td th:text="${bill.status}"></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="statistic-component">
+        <h3>revenues statistics</h3>
+        <p>Tổng doanh thu: <span th:text="${totalRevenue} + ' đ'"></span></p>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<style>
+    .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .statistic-component {
+        border: 1px solid;
+        padding: 5px;
+    }
+
+
+</style>

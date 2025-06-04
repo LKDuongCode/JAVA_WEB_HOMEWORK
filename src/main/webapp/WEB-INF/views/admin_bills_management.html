@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý đơn hàng</title>
+</head>
+<body>
+
+<h2>Danh sách đơn hàng</h2>
+
+<form th:action="@{/admin/bills}" method="get">
+    <label>Người dùng:
+        <input type="text" name="username" th:value="${username}">
+    </label>
+    <label>Trạng thái:
+        <select name="status">
+            <option value="">Tất cả</option>
+            <option value="PENDING" th:selected="${status == 'PENDING'}">Chờ xác nhận</option>
+            <option value="CONFIRMED" th:selected="${status == 'CONFIRMED'}">Đã xác nhận</option>
+            <option value="DELIVERING" th:selected="${status == 'DELIVERING'}">Đang giao</option>
+            <option value="COMPLETED" th:selected="${status == 'COMPLETED'}">Đã giao</option>
+            <option value="CANCELLED" th:selected="${status == 'CANCELLED'}">Đã hủy</option>
+        </select>
+    </label>
+    <label>Từ ngày:
+        <input type="date" name="from" th:value="${from}">
+    </label>
+    <label>Đến ngày:
+        <input type="date" name="to" th:value="${to}">
+    </label>
+    <button type="submit">Lọc</button>
+</form>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Người đặt</th>
+        <th>Tổng tiền</th>
+        <th>Ngày đặt</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bill : ${bills}">
+        <td th:text="${bill.id}"></td>
+        <td th:text="${bill.account.username}"></td>
+        <td th:text="${bill.totalMoney} + ' đ'"></td>
+        <td th:text="${#temporals.format(bill.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:text="${bill.status}"></td>
+        <td>
+            <a th:href="@{'/admin/bills/update/' + ${bill.id} + '/CONFIRMED'}"
+               th:if="${bill.status.name() == 'PENDING'}">Xác nhận</a>
+
+            <a th:href="@{'/admin/bills/update/' + ${bill.id} + '/DELIVERING'}"
+               th:if="${bill.status.name() == 'CONFIRMED'}">Giao hàng</a>
+
+            <a th:href="@{'/admin/bills/update/' + ${bill.id} + '/COMPLETED'}"
+               th:if="${bill.status.name() == 'DELIVERING'}">Hoàn tất</a>
+
+            <a th:href="@{'/admin/bills/update/' + ${bill.id} + '/CANCELLED'}"
+               th:if="${bill.status.name() == 'PENDING'}">Hủy</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{/admin/bills(page=${currentPage - 1}, username=${username}, status=${status}, from=${from}, to=${to})}"
+       th:if="${currentPage > 1}">; Trước</a>
+    <span th:text="${currentPage}"></span>
+    <a th:href="@{/admin/bills(page=${currentPage + 1}, username=${username}, status=${status}, from=${from}, to=${to})}">; Sau</a>
+</div>
+
+</body>
+</html>

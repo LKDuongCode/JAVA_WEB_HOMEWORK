@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa sản phẩm</title>
+</head>
+<body>
+
+<h2>Sửa sản phẩm</h2>
+
+<form th:action="@{/admin/products/edit}" th:object="${productDTO}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" name="oldImage" th:value="${oldImage}">
+
+    <p>
+        Tên sản phẩm:<br>
+        <input type="text" th:field="*{name}" required>
+    </p>
+    <p>
+        Mô tả:<br>
+        <textarea th:field="*{description}" required></textarea>
+    </p>
+    <p>
+        Giá:<br>
+        <input type="number" th:field="*{price}" step="0.01" required>
+    </p>
+    <p>
+        Số lượng:<br>
+        <input type="number" th:field="*{quantity}" required>
+    </p>
+    <p>
+        Ảnh hiện tại:<br>
+        <img th:src="@{'/uploads/' + ${oldImage}}" alt="Ảnh hiện tại" width="100">
+    </p>
+    <p>
+        Ảnh mới (nếu muốn thay):<br>
+        <input type="file" th:field="*{imageFile}" accept="image/*">
+    </p>
+    <p>
+        <button type="submit">Lưu thay đổi</button>
+        <a th:href="@{/admin/products}">Quay lại</a>
+    </p>
+</form>
+
+</body>
+</html>

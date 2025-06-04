@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý tài khoản</title>
+</head>
+<body>
+
+<h2>Quản lý tài khoản người dùng</h2>
+
+
+<form th:action="@{/admin/accounts}" method="get">
+    <input type="text" name="keyword" placeholder="Tìm theo username" th:value="${keyword}">
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="acc : ${accounts}">
+        <td th:text="${acc.id}"></td>
+        <td th:text="${acc.username}"></td>
+        <td th:text="${acc.email}"></td>
+        <td th:text="${acc.phone}"></td>
+        <td th:text="${acc.role}"></td>
+        <td th:text="${acc.status}"></td>
+        <td>
+            <a th:if="${acc.status.name() == 'ACTIVE'}"
+               th:href="@{'/admin/accounts/lock/' + ${acc.id}}">Khóa</a>
+            <a th:if="${acc.status.name() == 'INACTIVE'}"
+               th:href="@{'/admin/accounts/unlock/' + ${acc.id}}">Mở khóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<div>
+    <a th:href="@{/admin/accounts(page=${currentPage - 1}, keyword=${keyword})}" th:if="${currentPage > 1}"> Trước</a>
+    <span th:text="${currentPage}"></span>
+    <a th:href="@{/admin/accounts(page=${currentPage + 1}, keyword=${keyword})}"> Sau</a>
+</div>
+
+</body>
+</html>
