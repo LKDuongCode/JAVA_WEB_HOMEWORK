@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account List</title>
+</head>
+<body>
+<h3>Account List</h3>
+<table border="1" cellspacing="0" cellpadding="8">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="acc : ${accounts}">
+        <td th:text="${acc.id}">1</td>
+        <td th:text="${acc.username}">username</td>
+        <td th:text="${acc.email}">email</td>
+        <td th:text="${acc.phone}">phone</td>
+        <td th:text="${acc.status}">ACTIVE</td>
+        <td>
+            <form th:action="@{/admin/accounts/change-status/{id}(id=${acc.id})}" method="post">
+                <button type="submit">
+                    <span th:text="${acc.status.toString() == 'ACTIVE' ? 'Lock' : 'Unlock'}"></span>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    Page <span th:text="${curPage}">1</span> /
+    <span th:text="${totalPages}">5</span>
+    <div>
+        <a th:if="${curPage > 1}" th:href="@{/admin/accounts/{p}(p=${curPage - 1})}">Previous</a>
+        <a th:if="${curPage < totalPages}" th:href="@{/admin/accounts/{p}(p=${curPage + 1})}">Next</a>
+    </div>
+</div>
+</body>
+</html>

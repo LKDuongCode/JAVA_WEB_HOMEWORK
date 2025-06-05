@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Sửa rạp chiếu</title>
+</head>
+<body>
+<h1>Sửa thông tin rạp chiếu</h1>
+<form th:action="@{/theaters/edit}" th:object="${theaterDTO}" method="post">
+  <input type="hidden" th:field="*{id}"/>
+
+  <label>Tên rạp: <input type="text" th:field="*{theaterName}"/></label>
+  <div th:if="${#fields.hasErrors('theaterName')}" th:errors="*{theaterName}"></div>
+
+  <label>Địa chỉ: <input type="text" th:field="*{address}"/></label>
+  <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+
+  <label>Số phòng chiếu: <input type="number" th:field="*{numberScreenRoom}"/></label>
+  <div th:if="${#fields.hasErrors('numberScreenRoom')}" th:errors="*{numberScreenRoom}"></div>
+
+  <label>Trạng thái:
+    <select th:field="*{status}">
+      <option th:value="true">Đang hoạt động</option>
+      <option th:value="false">Ngừng hoạt động</option>
+    </select>
+  </label>
+
+  <button type="submit">Cập nhật</button>
+</form>
+<a th:href="@{/theaters}">Quay lại</a>
+</body>
+</html>

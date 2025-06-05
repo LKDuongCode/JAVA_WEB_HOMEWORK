@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Danh sách rạp chiếu</title>
+</head>
+<body>
+<h1>Danh sách rạp chiếu</h1>
+<a th:href="@{/theaters/create}">Thêm rạp</a>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Tên rạp</th>
+    <th>Địa chỉ</th>
+    <th>Số phòng chiếu</th>
+    <th>Trạng thái</th>
+    <th>Hành động</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="t : ${theaters}">
+    <td th:text="${t.theaterName}"></td>
+    <td th:text="${t.address}"></td>
+    <td th:text="${t.numberScreenRoom}"></td>
+    <td th:text="${t.status} ? 'Đang hoạt động' : 'Ngừng hoạt động'"></td>
+    <td>
+      <a th:href="@{/theaters/edit/{id}(id=${t.id})}">Sửa</a> |
+      <a th:href="@{/theaters/delete/{id}(id=${t.id})}" onclick="return confirm('Xóa rạp này?')">Xóa</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

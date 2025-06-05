@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sửa phòng chiếu</title>
+</head>
+<body>
+<h1>Sửa phòng chiếu</h1>
+<form th:action="@{/screen-rooms/edit}" th:object="${screenRoomDTO}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <input type="hidden" th:field="*{theaterId}" />
+
+    <label>Tên phòng:
+        <input type="text" th:field="*{roomName}" />
+    </label>
+    <div th:if="${#fields.hasErrors('roomName')}" th:errors="*{roomName}"></div>
+
+    <label>Loại màn hình:
+        <select th:field="*{screenType}">
+            <option th:value="'2D'" th:text="'2D'"></option>
+            <option th:value="'3D'" th:text="'3D'"></option>
+            <option th:value="'IMAX'" th:text="'IMAX'"></option>
+        </select>
+    </label>
+    <div th:if="${#fields.hasErrors('screenType')}" th:errors="*{screenType}"></div>
+
+    <label>Rạp chiếu:
+        <input type="text" th:value="${screenRoomDTO.theaterName}" disabled />
+    </label>
+
+    <label>Trạng thái:
+        <select th:field="*{status}">
+            <option th:value="true">Hoạt động</option>
+            <option th:value="false">Ngừng hoạt động</option>
+        </select>
+    </label>
+
+    <button type="submit">Cập nhật</button>
+</form>
+
+<a th:href="@{/screen-rooms}">Quay lại danh sách</a>
+</body>
+</html>

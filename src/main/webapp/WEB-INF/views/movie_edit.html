@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sửa phim</title>
+</head>
+<body>
+<h1>Sửa thông tin phim</h1>
+<form th:action="@{/movies/edit}" th:object="${movieDTO}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Tiêu đề: <input type="text" th:field="*{title}"/></label>
+    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+
+    <label>Đạo diễn: <input type="text" th:field="*{director}"/></label>
+    <div th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></div>
+
+    <label>Năm phát hành: <input type="number" th:field="*{releaseYear}"/></label>
+    <div th:if="${#fields.hasErrors('releaseYear')}" th:errors="*{releaseYear}"></div>
+
+    <label>Thể loại: <input type="text" th:field="*{genre}"/></label>
+
+    <label>Thời lượng (phút): <input type="number" th:field="*{duration}"/></label>
+    <div th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div>
+
+    <label>Ngôn ngữ: <input type="text" th:field="*{language}"/></label>
+
+    <label>Poster (URL): <input type="text" th:field="*{poster}"/></label>
+    <div th:if="${#fields.hasErrors('poster')}" th:errors="*{poster}"></div>
+
+    <label>Trạng thái:
+        <select th:field="*{status}">
+            <option th:value="true">Đang chiếu</option>
+            <option th:value="false">Ngừng chiếu</option>
+        </select>
+    </label>
+
+    <button type="submit">Cập nhật</button>
+</form>
+<a th:href="@{/movies}">Quay lại</a>
+</body>
+</html>

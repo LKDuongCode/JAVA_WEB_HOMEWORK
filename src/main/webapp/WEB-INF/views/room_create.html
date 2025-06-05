@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm phòng chiếu</title>
+</head>
+<body>
+<h1>Thêm phòng chiếu</h1>
+<form th:action="@{/screen-rooms/create}" th:object="${screenRoomDTO}" method="post">
+
+    <label>Tên phòng:
+        <input type="text" th:field="*{roomName}" />
+    </label>
+    <div th:if="${#fields.hasErrors('roomName')}" th:errors="*{roomName}"></div>
+
+    <label>Loại màn hình:
+        <select th:field="*{screenType}">
+            <option th:value="'2D'" th:text="'2D'"></option>
+            <option th:value="'3D'" th:text="'3D'"></option>
+            <option th:value="'IMAX'" th:text="'IMAX'"></option>
+        </select>
+    </label>
+    <div th:if="${#fields.hasErrors('screenType')}" th:errors="*{screenType}"></div>
+
+    <label>Sức chứa:
+        <input type="number" th:field="*{capacity}" />
+    </label>
+    <div th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div>
+
+    <label>Rạp chiếu:
+        <select th:field="*{theaterId}">
+            <option th:each="t : ${theaters}" th:value="${t.id}" th:text="${t.theaterName}"></option>
+        </select>
+    </label>
+    <div th:if="${#fields.hasErrors('theaterId')}" th:errors="*{theaterId}"></div>
+
+    <label>Trạng thái:
+        <select th:field="*{status}">
+            <option th:value="true">Hoạt động</option>
+            <option th:value="false">Ngừng hoạt động</option>
+        </select>
+    </label>
+
+    <button type="submit">Thêm</button>
+</form>
+
+<a th:href="@{/screen-rooms}">Quay lại danh sách</a>
+</body>
+</html>
