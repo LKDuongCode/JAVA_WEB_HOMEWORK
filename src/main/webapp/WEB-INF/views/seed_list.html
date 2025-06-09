@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+</head>
+<body>
+<h3 th:text="${title}">list</h3>
+<a th:href="@{/seeds/add}">add new </a>
+<form style="display: flex; gap: 50px" method="get" th:action="@{/seeds/search}">
+    <div>
+        <input name="name" placeholder="search by name..." th:value="${name}">
+    </div>
+
+    <div>
+        min: <input type="number" name="min" th:value="${min}">
+        max: <input type="number" name="max" th:value="${max}">
+    </div>
+
+    <button type="submit">search</button>
+</form>
+
+
+
+<table border="1" cellspacing="0" cellpadding="8">
+    <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>description</th>
+        <th>price</th>
+        <th>stock</th>
+        <th>image</th>
+        <th>actions</th>
+    </tr>
+    <tr th:if="${seeds.size() == 0}">
+        <td colspan="7"><p >No seeds found matching your search.</p></td>
+    </tr>
+    <tr th:each="s,loop : ${seeds}" th:if="${seeds.size() != 0}">
+        <td th:text="${loop.index + 1}"></td>
+        <td th:text="${s.name}"></td>
+        <td th:text="${s.description}"></td>
+        <td th:text="${s.price + '$'}"></td>
+        <td th:text="${s.stock + 'seeds'}"></td>
+
+        <td><img th:src="'/uploads/' + ${s.image}" alt="poster" width="100">
+        </td>
+        <td>
+            <a th:href="@{/seeds/edit/{id}(id=${s.id})}">edit</a>
+            <form method="post" th:action="@{/seeds/delete/{id}(id=${s.id})}">
+                <button type="submit" onclick="return confirm('delete?')">delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<div th:if="${seeds.size() != 0}">
+    <a th:if="${curPage > 1}" th:href="@{/seeds/{p} (p=${curPage - 1})}">prev</a>
+    <a th:if="${curPage < totalPages}" th:href="@{/seeds/{p} (p=${curPage + 1})}">next</a>
+</div>
+</body>
+</html>

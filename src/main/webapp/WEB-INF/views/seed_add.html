@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+</head>
+<body>
+<h3 th:text="${title}">add</h3>
+<form method="post" th:object="${createDTO}" enctype="multipart/form-data">
+    <label>
+        name:
+        <input th:field="*{name}">
+    </label>
+    <label>
+        description:
+        <textarea th:field="*{description}"></textarea>
+    </label>
+    <label>
+        price:
+        <input th:field="*{price}" type="number">
+    </label>
+    <label>
+        stock:
+        <input th:field="*{stock}" type="number">
+    </label>
+    <br>
+    image
+    <input th:field="*{file}" type="file"> <br>
+     <button type="submit">add</button>
+</form>
+</body>
+</html>
